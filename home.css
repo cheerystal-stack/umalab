@@ -282,6 +282,8 @@ button.ticket-day { background: #e0ebdf; overflow-wrap: anywhere; }
 #ticketClearDay[hidden] { display: none; }
 
 .brand-header {
+  position: relative;
+  z-index: 1;
   padding: 10px 14px;
   background: #fff;
 }
