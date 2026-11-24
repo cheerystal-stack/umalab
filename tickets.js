@@ -11,6 +11,14 @@ const ticketLedger = (() => {
   let readError = false;
   let activeRace;
   let editing;
+  let manual = false;
+  const schedule = {
+    '2026-11-28': {東京:{}, 京都:{9:'栂尾特別',10:'東山ステークス',11:'ラジオNIKKEI杯京都2歳ステークス'}},
+    '2026-11-29': {
+      東京:{8:'オリエンタル賞',9:'カトレアステークス',10:'アプローズ賞',11:'ウェルカムステークス',12:'ジャパンカップ'},
+      京都:{9:'白菊賞',10:'花園ステークス',11:'オータムリーフステークス',12:'京阪杯'}
+    }
+  };
 
   function numbersFor(type, value) {
     const [min, max] = type === '枠連' ? [1, 8] : [1, 18];
@@ -57,13 +65,78 @@ const ticketLedger = (() => {
 
   function resetForm() {
     editing = undefined;
+    manual = false;
+    el('ticketRaceFields').hidden = true;
+    for (const id of ['ticketDate','ticketVenue','ticketRaceNumber']) el(id).required = false;
     el('ticketForm').reset();
     el('ticketForm').hidden = !activeRace;
+    el('ticketContext').textContent = activeRace ?
+      `${activeRace.date} ${activeRace.venue} ${activeRace.raceName}` : '出馬表がなくても購入を記録できます。';
     el('ticketStake').value = 100;
     el('ticketSubmit').textContent = '購入を記録';
     el('ticketCancel').hidden = true;
     el('ticketRemove').hidden = true;
     updateFields();
+  }
+
+  function startManual() {
+    resetForm();
+    manual = true;
+    el('ticketForm').hidden = false;
+    el('ticketRaceFields').hidden = false;
+    for (const id of ['ticketDate','ticketVenue','ticketRaceNumber']) el(id).required = true;
+    const parts = new Intl.DateTimeFormat('ja-JP', {
+      timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'
+    }).formatToParts(new Date());
+    el('ticketDate').value = ['year','month','day'].map(part=>parts.find(x=>x.type===part).value).join('-');
+    el('ticketRaceNumber').value = '';
+    updateSchedule();
+    el('ticketContext').textContent = '出馬表なしの購入記録';
+    setStatus('');
+    el('ticketPanel').scrollIntoView({block:'start'});
+  }
+
+  function normalizedVenue() {
+    return el('ticketVenue').value.replace(/\s/g,'').replace(/競馬場$/,'');
+  }
+
+  function updateSchedule() {
+    const date = el('ticketDate').value;
+    const venue = normalizedVenue();
+    const venues = schedule[date];
+    const buttons = el('ticketVenueOptions');
+    buttons.replaceChildren();
+    for (const name of Object.keys(venues || {})) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'secondary';
+      button.textContent = name;
+      button.onclick = () => { el('ticketVenue').value = name; updateSchedule(); };
+      buttons.append(button);
+    }
+    for (const option of el('ticketRaceNumber').options) {
+      if (!option.value) continue;
+      const name = venues?.[venue]?.[option.value];
+      option.textContent = option.value + 'R' + (name ? ' ' + name : '');
+    }
+    el('ticketScheduleNote').textContent = venues ? 'JRAの番組表（予定）から競馬場を選べます。地方競馬は競馬場を入力してください。' : '';
+    el('ticketScheduleSource').href = venues ?
+      'https://www.jra.go.jp/keiba/calendar2026/2026/11/' + date.slice(5).replace('-','') + '.html' :
+      'https://www.jra.go.jp/keiba/program/2026/';
+  }
+
+  function manualRace() {
+    const date = el('ticketDate').value;
+    const venue = normalizedVenue();
+    const raceNumber = Number(el('ticketRaceNumber').value);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !venue ||
+        !Number.isInteger(raceNumber) || raceNumber < 1 || raceNumber > 12) {
+      throw Error('開催日・競馬場・レース番号を入力してください。');
+    }
+    const race = findTicketRace(date,venue,raceNumber);
+    const name = race?.race_name || schedule[date]?.[venue]?.[raceNumber];
+    return {date,venue,raceNumber,raceId:race ? String(race.race_id) : JSON.stringify([date,venue,raceNumber]),
+      raceName:raceNumber + 'R' + (name ? ' ' + name : '')};
   }
 
   function updateFields() {
@@ -75,6 +148,7 @@ const ticketLedger = (() => {
   }
 
   function edit(item) {
+    resetForm();
     editing = item;
     el('ticketType').value = item.type;
     el('ticketNumbers').value = item.numbers;
@@ -90,7 +164,8 @@ const ticketLedger = (() => {
   }
 
   function paint() {
-    const current = records.filter(item => item.raceId === activeRace?.raceId);
+    const current = records.filter(item => item.raceId === activeRace?.raceId || (activeRace &&
+      item.date === activeRace.date && item.venue === activeRace.venue && item.raceNumber === activeRace.raceNumber));
     const list = el('ticketList');
     list.replaceChildren();
     for (const item of current) {
@@ -138,7 +213,7 @@ const ticketLedger = (() => {
       row.type = 'button';
       row.className = 'home-race';
       row.textContent = `${item.date} ${item.venue} ${item.raceName} ｜ ${item.type} ${item.numbers} ｜ ${yen.format(item.stake)} ｜ ${labels[item.status]}${item.payout ? ' ' + yen.format(item.payout) : ''}`;
-      row.onclick = () => { openTicketRace(item.raceId); edit(item); };
+      row.onclick = () => { openTicketRace(item); edit(item); };
       history.append(row);
     }
     if (!records.length) history.textContent = '購入記録はまだありません。';
@@ -151,6 +226,16 @@ const ticketLedger = (() => {
       readError = true;
       el('ticketCount').textContent = '馬券記録を読み込めませんでした。';
     }
+    for (let number = 0; number <= 12; number++) {
+      const option = document.createElement('option');
+      option.value = number ? String(number) : '';
+      option.textContent = number ? number + 'R' : '選択';
+      el('ticketRaceNumber').append(option);
+    }
+    el('ticketDate').onchange = updateSchedule;
+    el('ticketVenue').oninput = updateSchedule;
+    el('ticketManual').onclick = startManual;
+    el('ticketManualOverview').onclick = startManual;
     el('ticketType').onchange = updateFields;
     el('ticketOutcome').onchange = updateFields;
     el('ticketCancel').onclick = resetForm;
@@ -166,7 +251,7 @@ const ticketLedger = (() => {
     el('ticketForm').onsubmit = event => {
       event.preventDefault();
       try {
-        const race = editing || activeRace;
+        const race = editing || (manual ? manualRace() : activeRace);
         if (!race) throw Error('レースを選んでください。');
         const type = el('ticketType').value;
         const numbers = numbersFor(type, el('ticketNumbers').value);
@@ -177,10 +262,15 @@ const ticketLedger = (() => {
         if (status === 'hit' && (!Number.isSafeInteger(payout) || payout <= 0)) throw Error('実際の払戻額を入力してください。');
         const item = {
           id: editing?.id ?? crypto.randomUUID(), raceId:race.raceId, raceName:race.raceName,
-          date:race.date, venue:race.venue, type, numbers, stake, status, payout
+          date:race.date, venue:race.venue, raceNumber:race.raceNumber, type, numbers, stake, status, payout
         };
         persist(editing ? records.map(old => old.id === item.id ? item : old) : [...records,item]);
-        resetForm();
+        if (manual) {
+          el('ticketNumbers').value = '';
+          el('ticketOutcome').value = 'pending';
+          el('ticketPayout').value = '';
+          updateFields();
+        } else resetForm();
         paint();
         setStatus('購入記録を保存しました。');
       } catch (error) { setStatus(error.message); }
@@ -190,9 +280,10 @@ const ticketLedger = (() => {
   }
 
   function selectRace(race) {
-    const next = race ? {raceId:String(race.race_id),raceName:String(race.race_name || race.race_number + 'R'),
-      date:String(race.date),venue:String(race.venue)} : undefined;
-    if (activeRace?.raceId !== next?.raceId || editing) {
+    const next = race ? {raceId:String(race.race_id),raceName:String(race.race_number + 'R' + (race.race_name ? ' ' + race.race_name : '')),
+      date:String(race.date),venue:String(race.venue).replace(/\s/g,'').replace(/競馬場$/,''),
+      raceNumber:Number(race.race_number) || undefined} : undefined;
+    if (activeRace?.raceId !== next?.raceId || editing || manual) {
       resetForm();
       setStatus('');
     }
