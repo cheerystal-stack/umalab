@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#173f35"><title>UMA LAB α0.3｜Race Research Lab</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#173f35"><title>UMA LAB α0.3.1｜Race Research Lab</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif;color:#243c32;background:#faf7ef}*{box-sizing:border-box}body{margin:0}header{background:#173f35;color:#fff8e8;padding:30px 20px 22px;text-align:center;border-bottom:5px solid #c8a76a}header small{letter-spacing:.2em;color:#d9c59a}h1{font-family:Georgia,serif;letter-spacing:.12em;margin:6px 0;font-size:36px}header p{margin:4px;font-size:12px}main{max-width:720px;margin:auto;padding:18px 14px 60px}.panel{background:white;border:1px solid #e4d8bf;border-radius:17px;padding:18px;margin:0 0 15px;box-shadow:0 3px 12px #382a1710}h2{font-size:17px;margin:0 0 13px}label{display:block;font-size:13px;margin:12px 0 5px;font-weight:700}input[type=file]{width:100%;font-size:13px;padding:10px;border:1px dashed #b3a382;border-radius:10px;background:#f9f7f0}button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;font-weight:700;background:#205144;color:white}button.secondary{background:#f1e9d7;color:#365046}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.muted{color:#786f61;font-size:12px;line-height:1.6}.race{background:#f4f0e5;padding:13px;border-radius:11px;line-height:1.7}.horse{width:100%;text-align:left;background:white;color:#263e33;border:1px solid #e4d8bf;display:flex;align-items:center;gap:12px;margin:8px 0;padding:13px}.num{display:grid;place-items:center;flex:none;width:37px;height:37px;border-radius:8px;background:#e8eee8;font-size:17px}.horse strong{display:block}.horse small{color:#7b7468}.arrow{margin-left:auto;color:#ae8c50}.hidden{display:none}.details{line-height:1.85}.details dl{display:grid;grid-template-columns:105px 1fr;margin:0;gap:6px;font-size:14px}.details dt{color:#776b5b}.details dd{margin:0;overflow-wrap:anywhere}.status{font-size:13px;color:#3b6855;white-space:pre-line}.warn{color:#a04830}.top{display:flex;justify-content:space-between;align-items:center}.tag{font-size:11px;color:#876d37;border:1px solid #c7b17d;border-radius:99px;padding:3px 8px}@media(min-width:600px){.horse{padding:16px}}
 .horseRow{display:flex;align-items:center;gap:8px;margin:8px 0}.horseRow .horse{flex:1;margin:0}.horseRow select,#raceSelect{border:1px solid #cdbb91;border-radius:12px;padding:12px;background:#fff;color:#243e35}#raceSelect{width:100%;max-width:100%} .horseRow select{min-width:85px}
 /* alpha 0.3 home layer; existing research components remain intact */
@@ -8,12 +8,213 @@ body{padding-bottom:76px}header{padding:20px 20px 16px}main{padding-top:12px}.vi
 .home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:15px}.home-tile{background:#fff;border:1px solid #e1cfaa;color:#274637;padding:15px 6px 12px;text-align:center;border-radius:16px;box-shadow:0 3px 10px #382a1712;min-height:88px}.home-tile .icon{display:block;font-size:26px;margin-bottom:6px}.home-tile .label{font-size:12px}.home-tile:active{transform:scale(.98)}.home-section-title{font-size:16px;margin:10px 0}.home-race{display:flex;align-items:center;width:100%;text-align:left;gap:12px;margin:8px 0;background:#fbfaf6;color:#29473a;border:1px solid #e5d6b9}.home-race .date{font-size:11px;color:#87765a}.home-race .race-title{font-weight:700;font-size:14px}.home-race .chev{margin-left:auto;color:#b49a62}.empty-race{padding:15px;background:#f6f1e6;border-radius:12px;font-size:13px;line-height:1.7}.home-notice{font-size:12px;color:#756b59;line-height:1.7}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;justify-content:center;gap:8px;background:#173f35;border-top:3px solid #c9a76a;padding:9px 10px calc(9px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px #0002}.bottom-nav button{background:transparent;color:#eee7d6;border:1px solid transparent;padding:7px 20px;font-size:13px}.bottom-nav button.active{background:#e9d9ad;color:#173f35;border-color:#d3b26c}.home-panel{padding:16px}.coming{font-size:12px;color:#87765a;margin-top:8px}
 @media(max-width:420px){.home-hero h2{font-size:30px}.bottom-nav button{padding:7px 13px}.home-tile .label{font-size:11px}}
-</style></head><body><header><small>RACE RESEARCH LAB</small><h1>UMA LAB</h1><p>RACE RESEARCH · α 0.3</p></header><main><div id="homeView"><section class="home-hero"><div class="hero-eyebrow">WELCOME TO YOUR RACE RESEARCH LAB</div><h2>UMA LAB</h2><p>予想する楽しさ、見つける喜び、応援する幸せ。<br>今日も一緒に、競馬を研究しよう♪</p><div class="character-row"><div class="character"><strong>🤍 しろね</strong><small>データを一緒に読み解こう♪</small></div><div class="character koharu"><strong>🤎 こはる</strong><small>ねぇ、今日の本命は決まった？♡</small></div></div></section><div class="home-grid"><button class="home-tile" data-action="research"><span class="icon">🔭</span><span class="label">レース予想</span></button><button class="home-tile" data-action="research"><span class="icon">📖</span><span class="label">出走馬図鑑</span></button><button class="home-tile" data-action="coming"><span class="icon">📊</span><span class="label">データ分析</span></button><button class="home-tile" data-action="coming"><span class="icon">🏆</span><span class="label">的中記録</span></button><button class="home-tile" data-action="coming"><span class="icon">💗</span><span class="label">推し馬</span></button><button class="home-tile" data-action="coming"><span class="icon">📅</span><span class="label">スケジュール</span></button></div><section class="panel home-panel"><h2 class="home-section-title">🏇 保存済みのレース</h2><div id="homeRaces"></div><p class="home-notice">公開データは初回に自動読み込みを試みます。更新は研究ページの「公開済みレースを取得」から行えます。</p></section><section class="panel home-panel"><h2 class="home-section-title">🌸 研究所からのお知らせ</h2><p id="homeMessage" class="home-notice">しろねとこはるの研究所へようこそ。予想印は端末に保存されます。</p></section></div><div id="researchView" class="view-hidden"><section class="panel"><div class="top"><h2>🧪 データを取り込む</h2><span class="tag">LOCAL ONLY</span></div><p class="muted">JSONなら1ファイルで取り込めます。従来のCSV 3種類も引き続き使えます。公開済みレース取得は同じサイトに配置したJSONを読み込みます。</p><label for="races">① レース情報 · races.csv</label><input id="races" type="file" accept=".csv,text/csv"><label for="entries">② 出走馬情報 · entries.csv</label><input id="entries" type="file" accept=".csv,text/csv"><label for="runs">③ 過去走情報 · past_runs.csv（任意）</label><input id="runs" type="file" accept=".csv,text/csv"><label for="bundle">✨ まとめて取り込む（JSON 1ファイル）</label><input id="bundle" type="file" accept=".json,application/json"><div class="buttons"><button id="bundleImport">まとめて読み込む</button><button id="autoLoad" class="secondary">公開済みレースを取得</button><button id="import">CSVを読み込む</button><button id="demo" class="secondary">同梱サンプルを表示</button></div><p id="status" class="status" role="status"></p></section><section id="results" class="hidden"><section class="panel"><h2>📚 保存済みレース</h2><select id="raceSelect" aria-label="表示するレース"></select><p class="muted">CSVを追加しても既存のレースは残ります。同じレースIDは更新されます。</p></section><section class="panel"><h2>🏇 レース情報</h2><div id="raceInfo" class="race"></div></section><section class="panel"><div class="top"><h2>🐴 出走馬一覧</h2><span id="count" class="tag"></span></div><div id="horses"></div></section><section class="panel"><h2>✏️ ちあきの予想印</h2><p class="muted">一覧から馬の印を選べます。予想は端末内に自動保存されます。</p><div id="predictionSummary"></div></section><section id="detailPanel" class="panel hidden"><h2>🤍 しろねの馬データ研究ノート</h2><div id="details" class="details"></div></section></section><section class="panel"><h2>💾 保存・バックアップ</h2><p class="muted">インポート後はこのブラウザ内に保存します。Safariの履歴やサイトデータを消すと失われることがあるため、バックアップも残してね。</p><div class="buttons"><button id="export" class="secondary">JSONバックアップ</button><label for="restore">JSONから復元</label><input id="restore" type="file" accept=".json,application/json"><button id="clear" class="secondary">保存データを削除</button></div></section></div></main><nav class="bottom-nav" aria-label="ページ切替"><button id="navHome" class="active" type="button">⌂ ホーム</button><button id="navResearch" type="button">♘ レース</button><button id="navSettings" type="button">⚙ 設定</button></nav><script>
+</style><link rel="stylesheet" href="./home.css"></head><body><header><small>RACE RESEARCH LAB</small><h1>UMA LAB</h1><p>RACE RESEARCH · α 0.3.1</p></header><main><div id="homeView"><section class="home-hero"><p>予想する楽しさ、見つける喜び、応援する幸せ。<br>今日も一緒に、競馬を研究しよう♪</p><div class="character-row"><div class="character"><strong>しろね</strong><small>データ分析担当</small></div><div class="character koharu"><strong>こはる</strong><small>直感・ひらめき担当</small></div></div></section><div class="home-grid"><button class="home-tile" data-action="research"><span class="icon icon-race" aria-hidden="true"></span><span class="label">レース予想</span></button><button class="home-tile field-link" data-action="research" aria-label="出走馬図鑑（選択中のレースの出走馬一覧）"><span class="icon icon-book" aria-hidden="true"></span><span class="label">出走馬図鑑</span></button><button class="home-tile" data-action="coming"><span class="icon icon-bars" aria-hidden="true"></span><span class="label">データ分析</span></button><button class="home-tile" data-action="coming"><span class="icon icon-award" aria-hidden="true"></span><span class="label">的中記録</span></button><button class="home-tile" data-action="coming"><span class="icon icon-heart" aria-hidden="true"></span><span class="label">推し馬</span></button><button class="home-tile" data-action="coming"><span class="icon icon-calendar" aria-hidden="true"></span><span class="label">スケジュール</span></button></div><section class="panel home-panel"><h2 class="home-section-title">保存済みのレース</h2><div id="homeRaces"></div><p class="home-notice">起動時に新規レースを取得します。保存済みレースの更新はレース画面から選べます。</p></section><section class="panel home-panel"><h2 class="home-section-title">データ更新状況</h2><p id="homeMessage" class="home-notice" role="status">しろねとこはるの研究所へようこそ。予想印は端末に保存されます。</p></section></div><div id="researchView" class="view-hidden"><section class="panel"><div class="top"><h2>🧪 データを取り込む</h2><span class="tag">LOCAL ONLY</span></div><p class="muted">JSONなら1ファイルで取り込めます。従来のCSV 3種類も引き続き使えます。公開済みレース取得は同じサイトに配置したJSONを読み込みます。</p><label for="races">① レース情報 · races.csv</label><input id="races" type="file" accept=".csv,text/csv"><label for="entries">② 出走馬情報 · entries.csv</label><input id="entries" type="file" accept=".csv,text/csv"><label for="runs">③ 過去走情報 · past_runs.csv（任意）</label><input id="runs" type="file" accept=".csv,text/csv"><label for="bundle">✨ まとめて取り込む（JSON 1ファイル）</label><input id="bundle" type="file" accept=".json,application/json"><div class="buttons"><button id="bundleImport">まとめて読み込む</button><button id="autoLoad" class="secondary">公開データを確認・更新</button><button id="import">CSVを読み込む</button><button id="demo" class="secondary">同梱サンプルを表示</button></div><p id="status" class="status" role="status"></p></section><section id="results" class="hidden"><section class="panel"><h2>📚 保存済みレース</h2><select id="raceSelect" aria-label="表示するレース"></select><p class="muted">CSVを追加しても既存のレースは残ります。同じレースIDは更新されます。</p></section><section class="panel"><h2>🏇 レース情報</h2><div id="raceInfo" class="race"></div></section><section class="panel"><div class="top"><h2>🐴 出走馬一覧</h2><span id="count" class="tag"></span></div><div id="horses" tabindex="-1"></div></section><section class="panel"><h2>✏️ ちあきの予想印</h2><p class="muted">一覧から馬の印を選べます。予想は端末内に自動保存されます。</p><div id="predictionSummary"></div></section><section id="detailPanel" class="panel hidden"><h2>🤍 しろねの馬データ研究ノート</h2><div id="details" class="details"></div></section></section><section class="panel"><h2>💾 保存・バックアップ</h2><p class="muted">インポート後はこのブラウザ内に保存します。Safariの履歴やサイトデータを消すと失われることがあるため、バックアップも残してね。</p><div class="buttons"><button id="export" class="secondary">JSONバックアップ</button><label for="restore">JSONから復元</label><input id="restore" type="file" accept=".json,application/json"><button id="clear" class="secondary">保存データを削除</button></div></section></div></main><nav class="bottom-nav" aria-label="ページ切替"><button id="navHome" class="active" type="button">⌂ ホーム</button><button id="navResearch" type="button">♘ レース</button><button id="navSettings" type="button">⚙ 設定</button></nav><script>
 'use strict';const $=id=>document.getElementById(id),key='uma_lab_alpha_v1';let db={races:[],entries:[],runs:[]};let selectedRace='';let picks={};const picksKey='uma_lab_picks_v1';
 function switchView(view){$('homeView').classList.toggle('view-hidden',view!=='home');$('researchView').classList.toggle('view-hidden',view==='home');$('navHome').classList.toggle('active',view==='home');$('navResearch').classList.toggle('active',view==='research');$('navSettings').classList.toggle('active',view==='settings');if(view==='settings'){$('researchView').classList.remove('view-hidden');$('researchView').scrollIntoView({behavior:'smooth',block:'end'})}else window.scrollTo({top:0,behavior:'smooth'});if(view==='home')renderHome()}
-function renderHome(){const box=$('homeRaces');box.replaceChildren();if(!db.races.length){box.innerHTML='<div class="empty-race">まだレースがありません。公開データを取得中、または「レース」から取り込んでね。</div>';return}for(const r of [...db.races].sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,8)){const b=document.createElement('button');b.className='home-race';b.innerHTML=`<span>🏇</span><span><span class="date">${escapeHTML(r.date)} · ${escapeHTML(r.venue)} ${escapeHTML(r.race_number)}R</span><br><span class="race-title">${escapeHTML(r.race_name||'レース')}</span></span><span class="chev">›</span>`;b.onclick=()=>{selectedRace=r.race_id;render();switchView('research')};box.append(b)}}
-$('navHome').onclick=()=>switchView('home');$('navResearch').onclick=()=>switchView('research');$('navSettings').onclick=()=>switchView('settings');document.querySelectorAll('.home-tile').forEach(b=>b.onclick=()=>{if(b.dataset.action==='research')switchView('research');else $('homeMessage').textContent='この機能は準備中だよ♪ まずは出馬表と予想を楽しんでね。'});
-const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function parseCSV(t){t=t.replace(/^\uFEFF/,'');let rows=[],row=[],v='',quoted=false;for(let i=0;i<t.length;i++){let c=t[i];if(c==='"'){if(quoted&&t[i+1]==='"'){v+='"';i++}else quoted=!quoted}else if(c===','&&!quoted){row.push(v);v=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&t[i+1]==='\n')i++;row.push(v);if(row.some(x=>x!==''))rows.push(row);row=[];v=''}else v+=c}if(quoted)throw Error('CSVの引用符が閉じていません');if(v!==''||row.length){row.push(v);rows.push(row)}if(!rows.length)return[];const header=rows.shift().map(s=>s.trim());if(header.some(h=>!h)||new Set(header).size!==header.length)throw Error('CSVヘッダーが不正です');return rows.map((r,i)=>{if(r.length!==header.length)throw Error(`${i+2}行目の列数が一致しません`);return Object.fromEntries(header.map((h,j)=>[h,r[j]]))})}function normalizeRows(rows,aliases){return rows.map(row=>{const out={...row};for(const [target,names] of Object.entries(aliases)){if(out[target]===undefined||out[target]===''){for(const name of names){if(row[name]!==undefined&&row[name]!==''){out[target]=row[name];break}}}}return out})}function normalizeData(d){return {races:normalizeRows(d.races||[],{venue:['track','競馬場'],race_name:['name','レース名'],race_number:['race_no','レース番号'],date:['race_date','開催日'],distance_m:['distance','距離'],surface:['course_type','芝ダート']}),entries:normalizeRows(d.entries||[],{frame_number:['frame','waku','枠番'],horse_number:['horse_no','number','馬番'],horse_name:['name','馬名'],sex:['gender','性別'],age:['horse_age','年齢'],coat:['coat_color','color','毛色'],jockey:['jockey_name','騎手'],carried_weight_kg:['weight','assigned_weight','burden_weight','斤量'],trainer:['trainer_name','調教師'],training_center:['center','所属'],sire:['father','父'],dam:['mother','母'],damsire:['broodmare_sire','maternal_grandsire','母父']}),runs:normalizeRows(d.runs||[],{race_date:['date_candidate','date'],finish_position:['finish_candidate'],last_3f:['last3f_candidate']})}}function shown(v){return v===undefined||v===null||String(v).trim()===''?'—':String(v)}function validate(d){if(!d.races.length)throw Error('レース情報がありません');if(!d.entries.length)throw Error('出走馬がありません');for(let [type,fields] of Object.entries({races:['race_id','date','venue','race_number'],entries:['race_id','horse_number','horse_name'],runs:['horse_name']})){if(!d[type].length)continue;for(let f of fields)if(!(f in d[type][0]))throw Error(`${type}.csv に ${f} 列がありません`)}let ids=new Set(d.races.map(r=>r.race_id));if(d.entries.some(e=>!ids.has(e.race_id)))throw Error('出走馬のrace_idに対応するレースがありません')}function setStatus(s,error=false){$('status').textContent=s;$('status').className='status'+(error?' warn':'')}function render(){if(!db.races.length||!db.entries.length)return;$('results').classList.remove('hidden');const r=db.races.find(x=>x.race_id===selectedRace)||db.races[0];selectedRace=r.race_id;const selector=$('raceSelect');selector.replaceChildren();for(const race of db.races){const o=document.createElement('option');o.value=race.race_id;o.textContent=`${race.date} ${race.venue} ${race.race_number}R ${race.race_name||''}`;selector.append(o)}selector.value=selectedRace;$('raceInfo').innerHTML=`<strong>${escapeHTML(r.date)}｜${escapeHTML(r.venue)} ${escapeHTML(r.race_number)}R</strong><br>${escapeHTML(r.race_name)}<br>${escapeHTML(r.surface)} ${escapeHTML(r.distance_m)}m · ${escapeHTML(r.direction)}回り · 発走 ${escapeHTML(r.start_time)}`;const horses=db.entries.filter(e=>e.race_id===r.race_id).sort((a,b)=>Number(a.horse_number)-Number(b.horse_number));$('count').textContent=horses.length+'頭';$('horses').replaceChildren();for(const h of horses){const b=document.createElement('button');b.className='horse';b.innerHTML=`<span class="num">${escapeHTML(h.horse_number)}</span><span><strong>${escapeHTML(h.horse_name)}</strong><small>${escapeHTML(shown(h.sex))}${escapeHTML(shown(h.age))} · ${escapeHTML(shown(h.jockey))} · ${escapeHTML(shown(h.carried_weight_kg))}${h.carried_weight_kg?'kg':''}</small></span><span class="arrow">›</span>`;b.onclick=()=>detail(h);$('horses').appendChild(b);const p=document.createElement('select');p.setAttribute('aria-label',h.horse_name+'の予想印');for(const mark of ['','◎','○','▲','☆','△','✓']){const o=document.createElement('option');o.value=mark;o.textContent=mark||'印なし';p.append(o)}const pk=r.race_id+'|'+h.horse_number;p.value=picks[pk]||'';p.onchange=()=>{if(p.value)picks[pk]=p.value;else delete picks[pk];localStorage.setItem(picksKey,JSON.stringify(picks));updatePicks()};const wrap=document.createElement('div');wrap.className='horseRow';b.parentNode?.removeChild(b);wrap.append(b,p);$('horses').appendChild(wrap)}$('detailPanel').classList.add('hidden');updatePicks();renderHome()}function detail(h){const fields=[['馬名',h.horse_name],['枠番 / 馬番',`${shown(h.frame_number)}枠 / ${shown(h.horse_number)}番`],['性齢・毛色',`${shown(h.sex)}${shown(h.age)}・${shown(h.coat)}`],['騎手 / 斤量',`${shown(h.jockey)} / ${shown(h.carried_weight_kg)}${h.carried_weight_kg?'kg':''}`],['調教師',`${shown(h.trainer)}（${shown(h.training_center)}）`],['父',h.sire],['母',h.dam],['母父',h.damsire],['照合状態',h.review_status||'—'],['単勝オッズ',h.win_odds?`${h.win_odds}倍（${h.popularity}番人気）`:'記録なし'],['馬固有ID',h.horse_id||'未取得']];let runs=db.runs.filter(x=>x.race_id===selectedRace&&(x.horse_number?String(x.horse_number)===String(h.horse_number):x.horse_name===h.horse_name)).sort((a,b)=>Number(a.run_order||0)-Number(b.run_order||0));$('details').innerHTML='<dl>'+fields.map(([a,b])=>`<dt>${escapeHTML(a)}</dt><dd>${escapeHTML(b||'—')}</dd>`).join('')+'</dl><h3>過去走</h3>'+(runs.length?runs.map(x=>`<div class="race">${escapeHTML(x.race_date||x.date_candidate||'日付未確認')} ${escapeHTML(x.venue||'')} ${escapeHTML(x.race_name||'')}<br>${escapeHTML(x.finish_position||x.finish_candidate||'—')} / ${escapeHTML(x.field_size||'—')}頭 · ${escapeHTML(x.surface||'')}${escapeHTML(x.distance_m||'')} ${escapeHTML(x.time||x.time_candidate||'')} · 上がり ${escapeHTML(x.last_3f||x.last3f_candidate||'—')}<br>${x.raw_pdf_cell?`<details><summary>原文データを見る</summary><small>${escapeHTML(x.raw_pdf_cell)}</small></details>`:''}${x.review_status?'<br><small>⚠ '+escapeHTML(x.review_status)+'（未照合）</small>':''}</div>`).join(''):'<p class="muted">この馬の過去走データはありません。</p>');$('detailPanel').classList.remove('hidden');$('detailPanel').scrollIntoView({behavior:'smooth',block:'start'})}function updatePicks(){const r=db.races.find(x=>x.race_id===selectedRace);if(!r)return;const marked=db.entries.filter(e=>e.race_id===r.race_id&&picks[r.race_id+'|'+e.horse_number]).map(e=>picks[r.race_id+'|'+e.horse_number]+' '+e.horse_name);$('predictionSummary').textContent=marked.join('　/　')||'まだ予想印はありません。'}function commit(d){d=normalizeData(d);validate(d);const ids=new Set(d.races.map(r=>r.race_id));db={races:[...db.races.filter(r=>!ids.has(r.race_id)),...d.races],entries:[...db.entries.filter(e=>!ids.has(e.race_id)),...d.entries],runs:[...db.runs.filter(x=>!ids.has(x.race_id)),...d.runs]};selectedRace=d.races[0].race_id;localStorage.setItem(key,JSON.stringify(db));render();setStatus(`追加・更新成功！ 合計${db.races.length}レース・${db.entries.length}頭・過去走${db.runs.length}件を保存しました。`)}$('bundleImport').onclick=async()=>{try{const f=$('bundle').files[0];if(!f)throw Error('JSONファイルを選んでください');const d=JSON.parse(await f.text());commit(d.db||d)}catch(e){setStatus('まとめて取り込み失敗: '+e.message,true)}};$('autoLoad').onclick=async()=>{try{const response=await fetch('./uma_lab_milecs_bundle.json',{cache:'no-store'});if(!response.ok)throw Error('公開データが見つかりません（JSONもGitHubに置いてください）');commit(await response.json())}catch(e){setStatus('取得失敗: '+e.message,true)}};$('raceSelect').onchange=e=>{selectedRace=e.target.value;render()};$('import').onclick=async()=>{try{if(!$('races').files[0]||!$('entries').files[0])throw Error('レース情報と出走馬のCSVを選んでください');let d={races:parseCSV(await $('races').files[0].text()),entries:parseCSV(await $('entries').files[0].text()),runs:$('runs').files[0]?parseCSV(await $('runs').files[0].text()):[]};commit(d)}catch(e){setStatus(e.message,true)}};$('demo').onclick=async()=>{try{const files=['uma_lab_races.csv','uma_lab_entries.csv','uma_lab_past_runs.csv'];let responses=await Promise.all(files.map(f=>fetch(f)));if(responses.some(r=>!r.ok))throw Error('サンプルが見つかりません');let [races,entries,runs]=await Promise.all(responses.map(async r=>parseCSV(await r.text())));commit({races,entries,runs})}catch(e){setStatus('同梱サンプルを読み込めませんでした。GitHub Pagesなどで公開して試すか、CSVファイルを直接選択してください。',true)}};$('export').onclick=()=>{if(!db.races.length){setStatus('保存済みデータがありません',true);return}let url=URL.createObjectURL(new Blob([JSON.stringify({db,picks},null,2)],{type:'application/json'}));let a=document.createElement('a');a.href=url;a.download='uma_lab_backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('clear').onclick=()=>{if(!confirm('端末内のUMA LAB保存データを削除しますか？'))return;localStorage.removeItem(key);localStorage.removeItem(picksKey);picks={};db={races:[],entries:[],runs:[]};$('results').classList.add('hidden');setStatus('保存データを削除しました');renderHome()};$('restore').onchange=async e=>{try{const backup=JSON.parse(await e.target.files[0].text());const restored=normalizeData(backup.db||backup);validate(restored);db=restored;picks=backup.picks||{};selectedRace=db.races[0].race_id;localStorage.setItem(key,JSON.stringify(db));localStorage.setItem(picksKey,JSON.stringify(picks));render();setStatus('バックアップを復元しました')}catch(err){setStatus('復元失敗: '+err.message,true)}};try{picks=JSON.parse(localStorage.getItem(picksKey)||'{}');let saved=localStorage.getItem(key);if(saved){let d=normalizeData(JSON.parse(saved));validate(d);db=d;render();setStatus('前回の保存データを復元しました')}}catch(e){setStatus('保存データを復元できませんでした。CSVから再読み込みしてください。',true)}
+function renderHome() {
+  const box = $('homeRaces');
+  box.replaceChildren();
+  if (!db.races.length) {
+    box.innerHTML = '<div class="empty-race">まだレースがありません。「レース」からデータを取り込めます。</div>';
+    return;
+  }
+  const groups = new Map();
+  const races = [...db.races].sort((a,b) =>
+    String(b.date).localeCompare(String(a.date)) ||
+    String(a.venue).localeCompare(String(b.venue), 'ja') ||
+    Number(a.race_number) - Number(b.race_number));
+  for (const race of races) {
+    const label = `${race.date} ｜ ${race.venue}`;
+    if (!groups.has(label)) groups.set(label, []);
+    groups.get(label).push(race);
+  }
+  for (const [label, group] of groups) {
+    const section = document.createElement('details');
+    section.className = 'race-group';
+    section.open = box.childElementCount === 0;
+    const heading = document.createElement('summary');
+    heading.textContent = `${label}（${group.length}レース）`;
+    section.append(heading);
+    for (const race of group) {
+      const button = document.createElement('button');
+      button.className = 'home-race';
+      button.innerHTML = `<span class="date">${escapeHTML(race.race_number)}R</span><span class="race-title">${escapeHTML(race.race_name || 'レース')}</span><span class="chev" aria-hidden="true">›</span>`;
+      button.onclick = () => {
+        selectedRace = race.race_id;
+        render();
+        switchView('research');
+      };
+      section.append(button);
+    }
+    box.append(section);
+  }
+}
+$('navHome').onclick=()=>switchView('home');$('navResearch').onclick=()=>switchView('research');$('navSettings').onclick=()=>switchView('settings');document.querySelectorAll('.home-tile').forEach(b=>b.onclick=()=>{if(b.dataset.action==='research'){switchView('research');if(b.classList.contains('field-link')&&db.races.length){$('horses').focus({preventScroll:true});$('horses').scrollIntoView({behavior:'smooth'})}}else $('homeMessage').textContent='この機能は準備中だよ♪ まずは出馬表と予想を楽しんでね。'});
+const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function parseCSV(t){t=t.replace(/^\uFEFF/,'');let rows=[],row=[],v='',quoted=false;for(let i=0;i<t.length;i++){let c=t[i];if(c==='"'){if(quoted&&t[i+1]==='"'){v+='"';i++}else quoted=!quoted}else if(c===','&&!quoted){row.push(v);v=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&t[i+1]==='\n')i++;row.push(v);if(row.some(x=>x!==''))rows.push(row);row=[];v=''}else v+=c}if(quoted)throw Error('CSVの引用符が閉じていません');if(v!==''||row.length){row.push(v);rows.push(row)}if(!rows.length)return[];const header=rows.shift().map(s=>s.trim());if(header.some(h=>!h)||new Set(header).size!==header.length)throw Error('CSVヘッダーが不正です');return rows.map((r,i)=>{if(r.length!==header.length)throw Error(`${i+2}行目の列数が一致しません`);return Object.fromEntries(header.map((h,j)=>[h,r[j]]))})}function normalizeRows(rows,aliases){if(!Array.isArray(rows)||rows.some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw Error('データの行形式が不正です');return rows.map(row=>{const out={...row};for(const [target,names] of Object.entries(aliases)){if(out[target]===undefined||out[target]===''){for(const name of names){if(row[name]!==undefined&&row[name]!==''){out[target]=row[name];break}}}}return out})}function normalizeData(d){return {races:normalizeRows(d.races??[],{venue:['track','競馬場'],race_name:['name','レース名'],race_number:['race_no','レース番号'],date:['race_date','開催日'],distance_m:['distance','距離'],surface:['course_type','芝ダート']}),entries:normalizeRows(d.entries??[],{frame_number:['frame','waku','枠番'],horse_number:['horse_no','number','馬番'],horse_name:['name','馬名'],sex:['gender','性別'],age:['horse_age','年齢'],coat:['coat_color','color','毛色'],jockey:['jockey_name','騎手'],carried_weight_kg:['weight','assigned_weight','burden_weight','斤量'],trainer:['trainer_name','調教師'],training_center:['center','所属'],sire:['father','父'],dam:['mother','母'],damsire:['broodmare_sire','maternal_grandsire','母父']}),runs:normalizeRows(d.runs??[],{race_date:['date_candidate','date'],finish_position:['finish_candidate'],last_3f:['last3f_candidate']})}}function shown(v){return v===undefined||v===null||String(v).trim()===''?'—':String(v)}function validateLegacy(d){if(!d.races.length)throw Error('レース情報がありません');if(!d.entries.length)throw Error('出走馬がありません');for(let [type,fields] of Object.entries({races:['race_id','date','venue','race_number'],entries:['race_id','horse_number','horse_name'],runs:['horse_name']})){if(!d[type].length)continue;for(let f of fields)if(!(f in d[type][0]))throw Error(`${type}.csv に ${f} 列がありません`)}let ids=new Set(d.races.map(r=>r.race_id));if(d.entries.some(e=>!ids.has(e.race_id)))throw Error('出走馬のrace_idに対応するレースがありません')}
+function validate(d) {
+  if (!d.races.length) throw Error('レース情報がありません');
+  if (!d.entries.length) throw Error('出走馬がありません');
+  const fields = {
+    races: ['race_id', 'date', 'venue', 'race_number'],
+    entries: ['race_id', 'horse_number', 'horse_name'],
+    runs: ['horse_name']
+  };
+  for (const [type, required] of Object.entries(fields)) {
+    for (const [index, row] of d[type].entries()) {
+      for (const field of required) {
+        if (!['string','number'].includes(typeof row[field]) || String(row[field]).trim() === '') {
+          throw Error(`${type} の ${index + 1}件目に有効な ${field} がありません`);
+        }
+      }
+    }
+  }
+  const ids = new Set(d.races.map(r => r.race_id));
+  if (ids.size !== d.races.length) throw Error('レースIDが重複しています');
+  const entries = new Set();
+  const coveredRaces = new Set();
+  for (const entry of d.entries) {
+    if (!ids.has(entry.race_id)) throw Error('出走馬に対応するレースがありません');
+    const id = entry.race_id + '|' + entry.horse_number;
+    if (entries.has(id)) throw Error('同じレースに馬番の重複があります');
+    entries.add(id);
+    coveredRaces.add(entry.race_id);
+  }
+  if (coveredRaces.size !== ids.size) throw Error('出走馬がないレースが含まれています');
+}
+function setStatus(s,error=false){$('status').textContent=s;$('status').className='status'+(error?' warn':'')}function render(){if(!db.races.length||!db.entries.length)return;$('results').classList.remove('hidden');const r=db.races.find(x=>x.race_id===selectedRace)||db.races[0];selectedRace=r.race_id;const selector=$('raceSelect');selector.replaceChildren();for(const race of db.races){const o=document.createElement('option');o.value=race.race_id;o.textContent=`${race.date} ${race.venue} ${race.race_number}R ${race.race_name||''}`;selector.append(o)}selector.value=selectedRace;$('raceInfo').innerHTML=`<strong>${escapeHTML(r.date)}｜${escapeHTML(r.venue)} ${escapeHTML(r.race_number)}R</strong><br>${escapeHTML(r.race_name)}<br>${escapeHTML(shown(r.surface))} ${escapeHTML(shown(r.distance_m))}${r.distance_m?'m':''} · ${escapeHTML(shown(r.direction))}${r.direction?'回り':''} · 発走 ${escapeHTML(shown(r.start_time))}`;const horses=db.entries.filter(e=>e.race_id===r.race_id).sort((a,b)=>Number(a.horse_number)-Number(b.horse_number));$('count').textContent=horses.length+'頭';$('horses').replaceChildren();for(const h of horses){const b=document.createElement('button');b.className='horse';b.innerHTML=`<span class="num">${escapeHTML(h.horse_number)}</span><span><strong>${escapeHTML(h.horse_name)}</strong><small>${escapeHTML(shown(h.sex))}${escapeHTML(shown(h.age))} · ${escapeHTML(shown(h.jockey))} · ${escapeHTML(shown(h.carried_weight_kg))}${h.carried_weight_kg?'kg':''}</small></span><span class="arrow">›</span>`;b.onclick=()=>detail(h);$('horses').appendChild(b);const p=document.createElement('select');p.setAttribute('aria-label',h.horse_name+'の予想印');for(const mark of ['','◎','○','▲','☆','△','✓']){const o=document.createElement('option');o.value=mark;o.textContent=mark||'印なし';p.append(o)}const pk=r.race_id+'|'+h.horse_number;p.value=picks[pk]||'';p.onchange=()=>{const next={...picks};if(p.value)next[pk]=p.value;else delete next[pk];try{localStorage.setItem(picksKey,JSON.stringify(next));picks=next;updatePicks()}catch(error){p.value=picks[pk]||'';setStatus('予想印を保存できませんでした。',true)}};const wrap=document.createElement('div');wrap.className='horseRow';b.parentNode?.removeChild(b);wrap.append(b,p);$('horses').appendChild(wrap)}$('detailPanel').classList.add('hidden');updatePicks();renderHome()}function detail(h){const fields=[['馬名',h.horse_name],['枠番 / 馬番',`${shown(h.frame_number)}枠 / ${shown(h.horse_number)}番`],['性齢・毛色',`${shown(h.sex)}${shown(h.age)}・${shown(h.coat)}`],['騎手 / 斤量',`${shown(h.jockey)} / ${shown(h.carried_weight_kg)}${h.carried_weight_kg?'kg':''}`],['調教師',`${shown(h.trainer)}（${shown(h.training_center)}）`],['父',h.sire],['母',h.dam],['母父',h.damsire],['照合状態',h.review_status||'—'],['単勝オッズ',h.win_odds?`${h.win_odds}倍（${h.popularity}番人気）`:'記録なし'],['馬固有ID',h.horse_id||'未取得']];let runs=db.runs.filter(x=>x.race_id===selectedRace&&(x.horse_number?String(x.horse_number)===String(h.horse_number):x.horse_name===h.horse_name)).sort((a,b)=>Number(a.run_order||0)-Number(b.run_order||0));$('details').innerHTML='<dl>'+fields.map(([a,b])=>`<dt>${escapeHTML(a)}</dt><dd>${escapeHTML(b||'—')}</dd>`).join('')+'</dl><h3>過去走</h3>'+(runs.length?runs.map(x=>`<div class="race">${escapeHTML(x.race_date||x.date_candidate||'日付未確認')} ${escapeHTML(x.venue||'')} ${escapeHTML(x.race_name||'')}<br>${escapeHTML(x.finish_position||x.finish_candidate||'—')} / ${escapeHTML(x.field_size||'—')}頭 · ${escapeHTML(x.surface||'')}${escapeHTML(x.distance_m||'')} ${escapeHTML(x.time||x.time_candidate||'')} · 上がり ${escapeHTML(x.last_3f||x.last3f_candidate||'—')}<br>${x.raw_pdf_cell?`<details><summary>原文データを見る</summary><small>${escapeHTML(x.raw_pdf_cell)}</small></details>`:''}${x.review_status?'<br><small>⚠ '+escapeHTML(x.review_status)+'（未照合）</small>':''}</div>`).join(''):'<p class="muted">この馬の過去走データはありません。</p>');$('detailPanel').classList.remove('hidden');$('detailPanel').scrollIntoView({behavior:'smooth',block:'start'})}function updatePicks(){const r=db.races.find(x=>x.race_id===selectedRace);if(!r)return;const marked=db.entries.filter(e=>e.race_id===r.race_id&&picks[r.race_id+'|'+e.horse_number]).map(e=>picks[r.race_id+'|'+e.horse_number]+' '+e.horse_name);$('predictionSummary').textContent=marked.join('　/　')||'まだ予想印はありません。'}function commit(raw, { background = false, keepRuns = false } = {}) {
+  const d = normalizeData(raw);
+  validate(d);
+  const ids = new Set(d.races.map(r => r.race_id));
+  const previousEntries = new Map(db.entries.filter(e => ids.has(e.race_id))
+    .map(e => [e.race_id + '|' + e.horse_number, e]));
+  for (const entry of d.entries) {
+    const pickId = entry.race_id + '|' + entry.horse_number;
+    const previous = previousEntries.get(pickId);
+    if (picks[pickId] && (!previous || previous.horse_name !== entry.horse_name ||
+      (previous.horse_id && entry.horse_id && previous.horse_id !== entry.horse_id))) {
+      throw Error('予想印がある馬の照合ができないため、取り込みを中止しました');
+    }
+    previousEntries.delete(pickId);
+  }
+  if ([...previousEntries.keys()].some(id => picks[id])) {
+    throw Error('予想印がある馬が更新データに含まれていません');
+  }
+  const next = {
+    races: [...db.races.filter(r => !ids.has(r.race_id)), ...d.races],
+    entries: [...db.entries.filter(e => !ids.has(e.race_id)), ...d.entries],
+    runs: [...db.runs.filter(r => !ids.has(r.race_id) || keepRuns), ...d.runs]
+  };
+  localStorage.setItem(key, JSON.stringify(next));
+  db = next;
+  if (!background || !selectedRace) {
+    selectedRace = d.races[0].race_id;
+    render();
+  } else {
+    appendRaceOptions(d.races);
+    renderHome();
+  }
+  setStatus(`追加・更新しました。合計${db.races.length}レース・${db.entries.length}頭・過去走${db.runs.length}件`);
+}
+function appendRaceOptions(races) {
+  for (const race of races) {
+    const o = document.createElement('option');
+    o.value = race.race_id;
+    o.textContent = `${race.date} ${race.venue} ${race.race_number}R ${race.race_name || ''}`;
+    $('raceSelect').append(o);
+  }
+}
+let pendingFeed;
+async function refreshFeed(manual = false) {
+  if (pendingFeed) {
+    if (!manual) return;
+    await pendingFeed;
+    return refreshFeed(true);
+  }
+  $('homeMessage').textContent = '公開データを確認しています。';
+  $('autoLoad').disabled = true;
+  pendingFeed = (async () => {
+    try {
+      const response = await fetch('./uma_lab_latest.json', { cache: 'no-store' });
+      if (response.status === 404) throw Error('更新用の公開データがまだありません。');
+      if (!response.ok) throw Error(`公開データの取得に失敗しました（HTTP ${response.status}）。`);
+      const feed = await response.json();
+      if (!feed || feed.schema_version !== 1 || !feed.db ||
+        typeof feed.source !== 'string' || !feed.source.trim() ||
+        typeof feed.published_at !== 'string' || !Number.isFinite(Date.parse(feed.published_at))) {
+        throw Error('公開データの形式または出典・公開日時が不正です。');
+      }
+      const d = normalizeData(feed.db);
+      validate(d);
+      const raceIds = new Set(d.races.map(race => race.race_id));
+      if (d.runs.some(run => !raceIds.has(run.race_id))) {
+        throw Error('公開データの過去走に対応するレースがありません。');
+      }
+      const savedIds = new Set(db.races.map(r => r.race_id));
+      const existing = d.races.filter(r => savedIds.has(r.race_id)).length;
+      const replace = manual && existing > 0 &&
+        confirm(`${existing}件の保存済み出馬表・過去走を公開データで更新しますか？ キャンセルすると新規レースだけを追加します。`);
+      const races = d.races.filter(r => replace || !savedIds.has(r.race_id));
+      const ids = new Set(races.map(r => r.race_id));
+      if (races.length) commit({
+        races,
+        entries: d.entries.filter(e => ids.has(e.race_id)),
+        runs: d.runs.filter(r => ids.has(r.race_id))
+      }, { background: !manual });
+      const msg = [
+        feed.source,
+        'データ公開 ' + new Intl.DateTimeFormat('ja-JP', {timeZone: 'Asia/Tokyo', dateStyle: 'medium', timeStyle: 'short'}).format(new Date(feed.published_at)),
+        races.length ? `${races.length}件を${replace ? '追加・更新' : '追加'}` : '新規レースなし'
+      ].join(' ｜ ');
+      $('homeMessage').textContent = msg;
+      if (manual) setStatus(msg);
+    } catch (error) {
+      $('homeMessage').textContent = error.message;
+      if (manual) setStatus(error.message, true);
+    }
+  })();
+  try {
+    await pendingFeed;
+  } finally {
+    pendingFeed = null;
+    $('autoLoad').disabled = false;
+  }
+}
+$('bundleImport').onclick=async()=>{try{const f=$('bundle').files[0];if(!f)throw Error('JSONファイルを選んでください');const d=JSON.parse(await f.text());commit(d.db||d)}catch(e){setStatus('まとめて取り込み失敗: '+e.message,true)}};$('autoLoad').onclick=()=>refreshFeed(true);$('raceSelect').onchange=e=>{selectedRace=e.target.value;render()};$('import').onclick=async()=>{try{if(!$('races').files[0]||!$('entries').files[0])throw Error('レース情報と出走馬のCSVを選んでください');let d={races:parseCSV(await $('races').files[0].text()),entries:parseCSV(await $('entries').files[0].text()),runs:$('runs').files[0]?parseCSV(await $('runs').files[0].text()):[]};commit(d,{keepRuns:!$('runs').files[0]})}catch(e){setStatus(e.message,true)}};$('demo').onclick=async()=>{
+  try {
+    const response = await fetch('./uma_lab_milecs_bundle.json', {cache:'no-store'});
+    if (!response.ok) throw Error('同梱サンプルが見つかりません');
+    const sample = await response.json();
+    const saved = db.races.find(r => r.race_id === sample.races[0].race_id);
+    if (saved) {
+      selectedRace = saved.race_id;
+      render();
+      setStatus('サンプルと同じレースIDの保存済みデータを表示しました');
+      return;
+    }
+    commit(sample);
+    setStatus('同梱のマイルCSサンプルを取り込みました。要照合の項目を含みます。');
+  } catch(error) {
+    setStatus(error.message, true);
+  }
+};$('export').onclick=()=>{if(!db.races.length){setStatus('保存済みデータがありません',true);return}let url=URL.createObjectURL(new Blob([JSON.stringify({db,picks},null,2)],{type:'application/json'}));let a=document.createElement('a');a.href=url;a.download='uma_lab_backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('clear').onclick=()=>{if(!confirm('端末内のUMA LAB保存データを削除しますか？'))return;localStorage.removeItem(key);localStorage.removeItem(picksKey);picks={};db={races:[],entries:[],runs:[]};selectedRace='';$('results').classList.add('hidden');setStatus('保存データを削除しました');renderHome()};$('restore').onchange=async e=>{try{const backup=JSON.parse(await e.target.files[0].text());const restored=normalizeData(backup.db||backup);validateLegacy(restored);
+const restoredPicks = backup.picks ?? {};
+if (!restoredPicks || typeof restoredPicks !== 'object' || Array.isArray(restoredPicks) ||
+    Object.values(restoredPicks).some(mark => !['◎','○','▲','☆','△','✓'].includes(mark))) {
+  throw Error('バックアップの予想印の形式が不正です');
+}
+const old = localStorage.getItem(key);
+localStorage.setItem(key, JSON.stringify(restored));
+try {
+  localStorage.setItem(picksKey, JSON.stringify(restoredPicks));
+} catch(error) {
+  if (old === null) localStorage.removeItem(key);
+  else localStorage.setItem(key, old);
+  throw error;
+}
+db = restored;
+picks = restoredPicks;
+selectedRace = db.races[0].race_id;render();setStatus('バックアップを復元しました')}catch(err){setStatus('復元失敗: '+err.message,true)}};try{picks=JSON.parse(localStorage.getItem(picksKey)||'{}');let saved=localStorage.getItem(key);if(saved){let d=normalizeData(JSON.parse(saved));validateLegacy(d);db=d;render();setStatus('前回の保存データを復元しました')}}catch(e){setStatus('保存データを復元できませんでした。CSVから再読み込みしてください。',true)}
 
-renderHome();if(!db.races.length){fetch('./uma_lab_milecs_bundle.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('公開データ未配置');return r.json()}).then(d=>{if(!db.races.length){commit(d.db||d);$('homeMessage').textContent='公開済みレースを読み込みました！ 🐎'}}).catch(()=>{$('homeMessage').textContent='公開データがまだありません。レース画面からJSONを読み込めます。'})}
+renderHome();
+refreshFeed();
 </script></body></html>

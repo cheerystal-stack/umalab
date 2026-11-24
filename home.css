@@ -1,0 +1,134 @@
+:root {
+  background: #f8f1e4;
+}
+header {
+  background: #15372e;
+  border-bottom: 3px double #c4a567;
+}
+main {
+  max-width: 1080px;
+  padding-inline: clamp(14px, 3vw, 34px);
+}
+.home-hero {
+  background: radial-gradient(ellipse at 75% 0%, #536d51, transparent 65%), #183b30;
+  border: 3px double #c9ac71;
+  padding: clamp(20px, 4vw, 42px);
+}
+.home-hero::after {
+  inset: 9px;
+  border: 1px solid #d4b77958;
+  border-radius: 12px;
+  content: "";
+}
+.home-hero p {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: clamp(14px, 2.5vw, 21px);
+  margin-block: 0 18px;
+  max-width: none;
+}
+.character-row {
+  max-width: 570px;
+}
+.character {
+  background: #fff7e5;
+  border-radius: 8px;
+}
+.character.koharu {
+  background: #faebdc;
+}
+.home-grid {
+  gap: 10px;
+}
+.home-tile, .home-panel {
+  background: #fffbf1;
+  border: 3px double #c4a56d;
+  border-radius: 12px;
+}
+.home-tile .label {
+  font-size: clamp(11px, 1.6vw, 15px);
+}
+.home-tile .icon {
+  width: 31px;
+  height: 24px;
+  position: relative;
+  margin: 0 auto 7px;
+  color: #886934;
+}
+.icon::before, .icon::after {
+  content: "";
+  position: absolute;
+}
+.icon-race::before {
+  inset: 3px 1px;
+  border: 2px solid;
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+.icon-race::after {
+  inset: 7px 6px;
+  border: 1px solid;
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+.icon-book::before, .icon-book::after {
+  top: 4px;
+  width: 12px;
+  height: 15px;
+  border: 2px solid;
+}
+.icon-book::before { right: 50%; border-radius: 2px 5px 0 2px; }
+.icon-book::after { left: 50%; border-radius: 5px 2px 2px 0; }
+.icon-bars::before {
+  bottom: 1px;
+  left: 4px;
+  width: 5px;
+  height: 7px;
+  background: currentColor;
+  box-shadow: 8px -4px, 16px -8px;
+}
+.icon-award::before {
+  inset: 1px 6px 6px;
+  border: 2px solid;
+  border-radius: 2px 2px 12px 12px;
+}
+.icon-award::after {
+  width: 15px;
+  height: 5px;
+  left: 8px;
+  bottom: 0;
+  border-bottom: 2px solid;
+  background: linear-gradient(90deg, transparent 44%, currentColor 44% 56%, transparent 56%);
+}
+.icon-heart::before {
+  inset: 1px 2px 0;
+  background: currentColor;
+  clip-path: polygon(50% 94%, 8% 54%, 0 30%, 9% 10%, 28% 2%, 50% 20%, 72% 2%, 91% 10%, 100% 30%, 92% 54%);
+}
+.icon-calendar::before {
+  inset: 3px 3px 1px;
+  border: 2px solid;
+  border-radius: 3px;
+}
+.icon-calendar::after {
+  inset: 9px 4px auto;
+  border-top: 2px solid;
+}
+.bottom-nav button { min-height: 44px; }
+button:focus-visible, select:focus-visible { outline: 2px solid #9c6635; outline-offset: 3px; }
+@media (min-width: 740px) {
+  .home-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  #homeView { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .home-hero, .home-grid { grid-column: 1 / -1; margin: 0; }
+}
+.race-group {
+  border-top: 1px solid #e4d8bf;
+}
+.race-group summary {
+  padding: 13px 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+.race-group .home-race {
+  min-height: 44px;
+}
