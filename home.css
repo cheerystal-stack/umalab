@@ -179,49 +179,69 @@ button:focus-visible, select:focus-visible { outline: 2px solid #9c6635; outline
 body {
   background: #fcf7ed url("./assets/sakura.png") center top / min(100%, 1254px) auto repeat-y;
 }
-.home-hero {
-  padding: 12px 8px 14px;
-  min-height: 0;
+#homeView {
+  isolation: isolate;
+}
+.home-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
   background: #fcf7ed url("./assets/sakura.png") center / cover;
+  overflow: hidden;
+}
+.home-backdrop img {
+  position: absolute;
+  width: min(62vw, 510px);
+  height: auto;
+  opacity: .58;
+  mix-blend-mode: multiply;
+}
+.backdrop-shirone {
+  top: max(76px, env(safe-area-inset-top));
+  right: 44%;
+}
+.home-backdrop .backdrop-koharu {
+  top: max(132px, env(safe-area-inset-top));
+  left: 45%;
+  width: min(58vw, 465px);
+}
+.home-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(238px, 66vw, 420px);
+  padding: 12px 8px 14px;
+  background: linear-gradient(transparent 47%, #fcf7edbc);
   text-align: center;
   color: #243e35;
-  box-shadow: 0 9px 21px #42311824;
+  box-shadow: 0 9px 21px #42311818;
 }
 .home-hero::after { display: none; }
 .hero-cast {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  align-items: end;
-  max-width: 570px;
-  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  width: min(100%, 680px);
+  margin-inline: auto;
 }
-.hero-character {
-  margin: 0;
-  min-width: 0;
-}
-.hero-character img {
-  display: block;
-  width: 100%;
-  height: auto;
-  mix-blend-mode: multiply;
-}
-.hero-character figcaption {
-  position: relative;
-  width: fit-content;
-  min-width: min(100%, 110px);
-  margin: -5px auto 0;
+.hero-name {
   padding: 5px 9px;
   border: 3px double #b59450;
   border-radius: 10px;
-  background: #fff9ed;
+  background: #fff9ede8;
   color: #284136;
 }
-.hero-character small { display: block; font-size: 11px; }
+.hero-name small { display: block; font-size: 11px; }
 .home-hero p {
   margin: 12px 8px 0;
   font-size: clamp(12px, 2vw, 17px);
 }
-.home-tile { background: linear-gradient(#fffcf5,#f4e7cc); }
+#homeView .home-tile {
+  background: linear-gradient(#fffcf5df,#f4e7ccd9);
+}
+#homeView .home-panel { background: #fffbf1d9; }
+#homeView .home-race { background: #fffcf3a8; }
 .home-race { border-radius: 10px; }
 .ticket-month-nav {
   display: flex;
@@ -260,3 +280,36 @@ button.ticket-day { background: #e0ebdf; overflow-wrap: anywhere; }
 .ticket-day[aria-current="date"] { box-shadow: inset 0 0 0 2px #9a753e; }
 .ticket-day small { font-size: 10px; font-variant-numeric: tabular-nums; max-width: 100%; }
 #ticketClearDay[hidden] { display: none; }
+
+.brand-header {
+  padding: 10px 14px;
+  background: #fff;
+}
+.brand-header h1 { margin: 0; }
+.brand-header img {
+  display: block;
+  width: min(100%, 340px);
+  height: auto;
+  margin: auto;
+}
+.race-finder { background: #fffbf1; border: 3px double #c59453; }
+.race-finder input, .race-finder select {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #ba9c61;
+  border-radius: 9px;
+  background: #fffdf7;
+  color: #243e35;
+  font: inherit;
+  font-size: 16px;
+}
+#raceVenues { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#raceVenues button { min-height: 44px; border: 1px solid #ba9c61; border-radius: 999px; }
+#raceVenues button[aria-pressed="false"] { background: #fffbf1; color: #243e35; }
+#raceMatches .home-race {
+  min-height: 44px;
+  display: block;
+  overflow-wrap: anywhere;
+}
+#raceMatches .home-race::after { content: " ›"; }
