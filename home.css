@@ -176,47 +176,47 @@ button:focus-visible, select:focus-visible { outline: 2px solid #9c6635; outline
 }
 #ticketManual { margin-bottom: 12px; }
 
-/* The original home concept art is framed in CSS. */
+body {
+  background: #fcf7ed url("./assets/sakura.png") center top / min(100%, 1254px) auto repeat-y;
+}
 .home-hero {
-  padding: 0 0 12px;
+  padding: 12px 8px 14px;
   min-height: 0;
-  background: #193e32;
+  background: #fcf7ed url("./assets/sakura.png") center / cover;
   text-align: center;
+  color: #243e35;
   box-shadow: 0 9px 21px #42311824;
 }
 .home-hero::after { display: none; }
-.home-illustration {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3.28;
-  overflow: hidden;
-  background: #ddd1bc;
-  border-bottom: 3px double #d5b979;
+.hero-cast {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: end;
+  max-width: 570px;
+  margin: auto;
 }
-.home-illustration img {
-  position: absolute;
-  inset: 0 auto auto 0;
+.hero-character {
+  margin: 0;
+  min-width: 0;
+}
+.hero-character img {
+  display: block;
   width: 100%;
   height: auto;
-  transform: translateY(-3.5%);
+  mix-blend-mode: multiply;
 }
-.hero-signatures {
-  display: flex;
-  justify-content: space-around;
-  gap: 12px;
+.hero-character figcaption {
   position: relative;
-  margin: -11px 12px 0;
-}
-.hero-signatures > div {
+  width: fit-content;
+  min-width: min(100%, 110px);
+  margin: -5px auto 0;
+  padding: 5px 9px;
   border: 3px double #b59450;
   border-radius: 10px;
-  background: #fff6e5;
+  background: #fff9ed;
   color: #284136;
-  min-width: min(32%, 135px);
-  padding: 5px 10px;
-  box-shadow: 0 3px 6px #21160638;
 }
-.hero-signatures small { display: block; font-size: 11px; }
+.hero-character small { display: block; font-size: 11px; }
 .home-hero p {
   margin: 12px 8px 0;
   font-size: clamp(12px, 2vw, 17px);
