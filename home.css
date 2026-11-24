@@ -180,14 +180,14 @@ body {
   background: #fcf7ed url("./assets/sakura.png") center top / min(100%, 1254px) auto repeat-y;
 }
 #homeView {
+  position: relative;
   isolation: isolate;
 }
 .home-backdrop {
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  background: #fcf7ed url("./assets/sakura.png") center / cover;
   overflow: hidden;
 }
 .home-backdrop img {
@@ -198,11 +198,11 @@ body {
   mix-blend-mode: multiply;
 }
 .backdrop-shirone {
-  top: max(76px, env(safe-area-inset-top));
+  top: 0;
   right: 44%;
 }
 .home-backdrop .backdrop-koharu {
-  top: max(132px, env(safe-area-inset-top));
+  top: 56px;
   left: 45%;
   width: min(58vw, 465px);
 }
@@ -284,7 +284,7 @@ button.ticket-day { background: #e0ebdf; overflow-wrap: anywhere; }
 .brand-header {
   position: relative;
   z-index: 1;
-  padding: 10px 14px;
+  padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
   background: #fff;
 }
 .brand-header h1 { margin: 0; }
