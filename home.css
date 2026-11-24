@@ -175,3 +175,88 @@ button:focus-visible, select:focus-visible { outline: 2px solid #9c6635; outline
   border-radius: 9px;
 }
 #ticketManual { margin-bottom: 12px; }
+
+/* The original home concept art is framed in CSS. */
+.home-hero {
+  padding: 0 0 12px;
+  min-height: 0;
+  background: #193e32;
+  text-align: center;
+  box-shadow: 0 9px 21px #42311824;
+}
+.home-hero::after { display: none; }
+.home-illustration {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3.28;
+  overflow: hidden;
+  background: #ddd1bc;
+  border-bottom: 3px double #d5b979;
+}
+.home-illustration img {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-3.5%);
+}
+.hero-signatures {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  position: relative;
+  margin: -11px 12px 0;
+}
+.hero-signatures > div {
+  border: 3px double #b59450;
+  border-radius: 10px;
+  background: #fff6e5;
+  color: #284136;
+  min-width: min(32%, 135px);
+  padding: 5px 10px;
+  box-shadow: 0 3px 6px #21160638;
+}
+.hero-signatures small { display: block; font-size: 11px; }
+.home-hero p {
+  margin: 12px 8px 0;
+  font-size: clamp(12px, 2vw, 17px);
+}
+.home-tile { background: linear-gradient(#fffcf5,#f4e7cc); }
+.home-race { border-radius: 10px; }
+.ticket-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 16px 0 8px;
+}
+.ticket-month-nav h3, .ticket-history-header h3 { margin: 0; }
+.ticket-month-nav button { min-height: 44px; }
+#ticketCalendar {
+  display: grid;
+  grid-template-columns: repeat(7,minmax(0,1fr));
+  gap: 3px;
+  color: #263e33;
+}
+.ticket-weekday, .ticket-day {
+  min-width: 0;
+  text-align: center;
+}
+.ticket-weekday { font-size: 12px; padding: 5px 0; }
+.ticket-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 3px 1px;
+  border-radius: 6px;
+  background: #f4efe2;
+  color: #263e33;
+  font-size: 13px;
+}
+button.ticket-day { background: #e0ebdf; overflow-wrap: anywhere; }
+.ticket-day[aria-pressed="true"] { background: #205144; color: #fff; }
+.ticket-day[aria-current="date"] { box-shadow: inset 0 0 0 2px #9a753e; }
+.ticket-day small { font-size: 10px; font-variant-numeric: tabular-nums; max-width: 100%; }
+#ticketClearDay[hidden] { display: none; }

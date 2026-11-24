@@ -12,6 +12,12 @@ const ticketLedger = (() => {
   let activeRace;
   let editing;
   let manual = false;
+  const todayParts = new Intl.DateTimeFormat('ja-JP',{
+    timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'
+  }).formatToParts(new Date());
+  const today = ['year','month','day'].map(part=>todayParts.find(x=>x.type===part).value).join('-');
+  let month = today.slice(0,7);
+  let selectedDay;
   const schedule = {
     '2026-11-28': {東京:{}, 京都:{9:'栂尾特別',10:'東山ステークス',11:'ラジオNIKKEI杯京都2歳ステークス'}},
     '2026-11-29': {
@@ -85,10 +91,7 @@ const ticketLedger = (() => {
     el('ticketForm').hidden = false;
     el('ticketRaceFields').hidden = false;
     for (const id of ['ticketDate','ticketVenue','ticketRaceNumber']) el(id).required = true;
-    const parts = new Intl.DateTimeFormat('ja-JP', {
-      timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'
-    }).formatToParts(new Date());
-    el('ticketDate').value = ['year','month','day'].map(part=>parts.find(x=>x.type===part).value).join('-');
+    el('ticketDate').value = today;
     el('ticketRaceNumber').value = '';
     updateSchedule();
     el('ticketContext').textContent = '出馬表なしの購入記録';
@@ -183,13 +186,73 @@ const ticketLedger = (() => {
     }
     if (!current.length) list.textContent = 'このレースの購入記録はまだありません。';
 
-    const total = records.reduce((sum,item) => sum + item.stake,0);
-    const settled = records.filter(item => ['hit','lost'].includes(item.status));
+    paintMonth();
+  }
+
+  function moveMonth(offset) {
+    const [year,number] = month.split('-').map(Number);
+    const date = new Date(Date.UTC(year,number-1+offset,1));
+    month = date.toISOString().slice(0,7);
+    selectedDay = undefined;
+    paintMonth();
+    el(offset < 0 ? 'ticketPreviousMonth' : 'ticketNextMonth').focus();
+  }
+
+  function paintCalendar(monthly) {
+    const grid = el('ticketCalendar');
+    grid.replaceChildren();
+    const [year,number] = month.split('-').map(Number);
+    el('ticketMonthTitle').textContent = `${year}年${number}月`;
+    for (const label of ['日','月','火','水','木','金','土']) {
+      const heading = document.createElement('span');
+      heading.className = 'ticket-weekday';
+      heading.textContent = label;
+      grid.append(heading);
+    }
+    const start = new Date(Date.UTC(year,number-1,1)).getUTCDay();
+    const length = new Date(Date.UTC(year,number,0)).getUTCDate();
+    for (let slot=0; slot<start; slot++) {
+      grid.append(document.createElement('span'));
+    }
+    const daily = new Map();
+    for (const item of monthly) {
+      daily.set(item.date,(daily.get(item.date) || 0)+item.stake);
+    }
+    for (let day=1; day<=length; day++) {
+      const date = month+'-'+String(day).padStart(2,'0');
+      const amount = daily.get(date);
+      const cell = document.createElement(amount ? 'button' : 'span');
+      cell.className = 'ticket-day';
+      cell.textContent = day;
+      if (date===today) cell.setAttribute('aria-current','date');
+      if (amount) {
+        cell.type = 'button';
+        cell.dataset.date = date;
+        cell.setAttribute('aria-label',`${number}月${day}日 購入 ${amount.toLocaleString('ja-JP')}円`);
+        cell.setAttribute('aria-pressed',String(date===selectedDay));
+        const price = document.createElement('small');
+        price.textContent = amount.toLocaleString('ja-JP');
+        cell.append(price);
+        cell.onclick = () => {
+          selectedDay = selectedDay===date ? undefined : date;
+          paintMonth();
+          grid.querySelector(`[data-date="${date}"]`)?.focus();
+        };
+      }
+      grid.append(cell);
+    }
+  }
+
+  function paintMonth() {
+    const monthly = records.filter(item=>item.date.startsWith(month+'-'));
+    paintCalendar(monthly);
+    const total = monthly.reduce((sum,item) => sum + item.stake,0);
+    const settled = monthly.filter(item => ['hit','lost'].includes(item.status));
     const stake = settled.reduce((sum,item) => sum + item.stake,0);
     const payout = settled.reduce((sum,item) => sum + item.payout,0);
     const hits = settled.filter(item => item.status === 'hit').length;
-    const pending = records.filter(item => item.status === 'pending').length;
-    const refunded = records.length - settled.length - pending;
+    const pending = monthly.filter(item => item.status === 'pending').length;
+    const refunded = monthly.length - settled.length - pending;
     const stats = [
       ['購入総額',yen.format(total)],
       ['確定払戻',yen.format(payout)],
@@ -206,9 +269,13 @@ const ticketLedger = (() => {
       el('ticketStats').append(dt,dd);
     }
     el('ticketCount').textContent = `確定 ${settled.length}点（的中 ${hits}点）・結果待ち ${pending}点・返還 ${refunded}点`;
+    const visible = selectedDay ? monthly.filter(item=>item.date===selectedDay) : monthly;
+    el('ticketClearDay').hidden = !selectedDay;
+    el('ticketHistoryTitle').textContent = selectedDay ?
+      Number(selectedDay.slice(-2)) + '日の購入履歴' : '月の購入履歴';
     const history = el('ticketHistory');
     history.replaceChildren();
-    for (const item of [...records].sort((a,b) => b.date.localeCompare(a.date))) {
+    for (const item of [...visible].sort((a,b) => b.date.localeCompare(a.date))) {
       const row = document.createElement('button');
       row.type = 'button';
       row.className = 'home-race';
@@ -216,7 +283,7 @@ const ticketLedger = (() => {
       row.onclick = () => { openTicketRace(item); edit(item); };
       history.append(row);
     }
-    if (!records.length) history.textContent = '購入記録はまだありません。';
+    if (!visible.length) history.textContent = '購入記録はありません。';
   }
 
   function setup() {
@@ -232,6 +299,13 @@ const ticketLedger = (() => {
       option.textContent = number ? number + 'R' : '選択';
       el('ticketRaceNumber').append(option);
     }
+    el('ticketPreviousMonth').onclick = () => moveMonth(-1);
+    el('ticketNextMonth').onclick = () => moveMonth(1);
+    el('ticketClearDay').onclick = () => {
+      selectedDay = undefined;
+      paintMonth();
+      el('ticketMonthTitle').focus();
+    };
     el('ticketDate').onchange = updateSchedule;
     el('ticketVenue').oninput = updateSchedule;
     el('ticketManual').onclick = startManual;
@@ -265,6 +339,8 @@ const ticketLedger = (() => {
           date:race.date, venue:race.venue, raceNumber:race.raceNumber, type, numbers, stake, status, payout
         };
         persist(editing ? records.map(old => old.id === item.id ? item : old) : [...records,item]);
+        month = item.date.slice(0,7);
+        selectedDay = undefined;
         if (manual) {
           el('ticketNumbers').value = '';
           el('ticketOutcome').value = 'pending';
