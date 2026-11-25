@@ -160,12 +160,12 @@ button:focus-visible, select:focus-visible { outline: 2px solid #9c6635; outline
   border-bottom: 1px solid #e4d8bf;
 }
 .ticket-row button { flex: none; min-height: 44px; }
-#ticketStats {
+#ticketStats, #ticketDayStats {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 9px 14px;
 }
-#ticketStats dd { margin: 0; font-weight: 700; text-align: right; }
+#ticketStats dd, #ticketDayStats dd { margin: 0; font-weight: 700; text-align: right; }
 #ticketPanel [hidden] { display: none; }
 #ticketRaceFields {
   min-width: 0;
@@ -315,3 +315,13 @@ button.ticket-day { background: #e0ebdf; overflow-wrap: anywhere; }
   overflow-wrap: anywhere;
 }
 #raceMatches .home-race::after { content: " ›"; }
+
+#ticketDaySummary {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border: 1px solid #d8c69e;
+  border-radius: 12px;
+  background: #fffaf0;
+}
+#ticketDaySummary h3 { margin: 0; }
+#ticketDaySummary p { margin-bottom: 0; }

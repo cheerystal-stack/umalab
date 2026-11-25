@@ -243,33 +243,43 @@ const ticketLedger = (() => {
     }
   }
 
-  function paintMonth() {
-    const monthly = records.filter(item=>item.date.startsWith(month+'-'));
-    paintCalendar(monthly);
-    const total = monthly.reduce((sum,item) => sum + item.stake,0);
-    const settled = monthly.filter(item => ['hit','lost'].includes(item.status));
+  function paintSummary(items, statsId, countId, includeHitRate = false) {
+    const total = items.reduce((sum,item) => sum + item.stake,0);
+    const settled = items.filter(item => ['hit','lost'].includes(item.status));
     const stake = settled.reduce((sum,item) => sum + item.stake,0);
     const payout = settled.reduce((sum,item) => sum + item.payout,0);
     const hits = settled.filter(item => item.status === 'hit').length;
-    const pending = monthly.filter(item => item.status === 'pending').length;
-    const refunded = monthly.length - settled.length - pending;
+    const pending = items.filter(item => item.status === 'pending').length;
+    const refunded = items.length - settled.length - pending;
     const stats = [
       ['購入総額',yen.format(total)],
       ['確定払戻',yen.format(payout)],
       ['確定収支',yen.format(payout-stake)],
-      ['回収率',stake ? (payout/stake*100).toFixed(1)+'%' : '—'],
-      ['点数ベースの的中率',settled.length ? (hits/settled.length*100).toFixed(1)+'%' : '—']
+      ['回収率',stake ? (payout/stake*100).toFixed(1)+'%' : '—']
     ];
-    el('ticketStats').replaceChildren();
+    if (includeHitRate) stats.push(['点数ベースの的中率', settled.length ? (hits/settled.length*100).toFixed(1)+'%' : '—']);
+    el(statsId).replaceChildren();
     for (const [label,value] of stats) {
       const dt = document.createElement('dt');
       const dd = document.createElement('dd');
       dt.textContent = label;
       dd.textContent = value;
-      el('ticketStats').append(dt,dd);
+      el(statsId).append(dt,dd);
     }
-    el('ticketCount').textContent = `確定 ${settled.length}点（的中 ${hits}点）・結果待ち ${pending}点・返還 ${refunded}点`;
+    el(countId).textContent = `確定 ${settled.length}点（的中 ${hits}点）・結果待ち ${pending}点・返還 ${refunded}点`;
+  }
+
+  function paintMonth() {
+    const monthly = records.filter(item=>item.date.startsWith(month+'-'));
+    paintCalendar(monthly);
+    paintSummary(monthly, 'ticketStats', 'ticketCount', true);
     const visible = selectedDay ? monthly.filter(item=>item.date===selectedDay) : monthly;
+    el('ticketDaySummary').hidden = !selectedDay;
+    if (selectedDay) {
+      const [, monthNumber, dayNumber] = selectedDay.split('-').map(Number);
+      el('ticketDaySummaryTitle').textContent = `${monthNumber}月${dayNumber}日の日別収支`;
+      paintSummary(visible, 'ticketDayStats', 'ticketDayCount');
+    }
     el('ticketClearDay').hidden = !selectedDay;
     el('ticketHistoryTitle').textContent = selectedDay ?
       Number(selectedDay.slice(-2)) + '日の購入履歴' : '月の購入履歴';
